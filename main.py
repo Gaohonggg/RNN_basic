@@ -72,6 +72,7 @@ def transform(text, word_to_idx, max_seq_len):
             word_ids = word_to_idx[word]
         except:
             word_ids = word_to_idx["UNK"]
+        tokens.append( word_ids )
     
     if len(tokens) > max_seq_len:
         tokens = tokens[:max_seq_len]
@@ -178,7 +179,7 @@ def fit(model, train_loader, val_loader,
         bath_train_losses = []
         model.train()
 
-        for idx, (inputs,labels) in enumerate(train_dataloader):
+        for idx, (inputs,labels) in enumerate(train_loader):
             inputs, labels = inputs.to(device), labels.to(device)
 
             optimizer.zero_grad()
@@ -293,21 +294,3 @@ if __name__ == "__main__":
     print("Evaluation on val/test dataset:")
     print("val accurancy: ", val_acc)
     print("Test accurancy: ", test_acc)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
